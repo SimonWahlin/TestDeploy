@@ -14,7 +14,7 @@ jobs:
         continue-on-error: true
       
       # This action will restore bicep from cache or install if not found in cache
-      - uses: simonwahlin/CompositeActionTest@v2
+      - uses: simonwahlin/CompositeActionTest@v3
       
       # This action will authenticate to Azure
       - name: Azure Login
