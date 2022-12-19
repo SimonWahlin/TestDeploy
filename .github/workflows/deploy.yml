@@ -24,17 +24,22 @@ jobs:
 
       # Simple bash step that lists current bicep version
       # and deploys a template (az cli is included in ubuntu runner)
-      - name: "Deploy template"
-        shell: bash
-        run: |
-          az bicep version
-          az deployment sub create --location westeurope --template-file main.bicep
+      #- name: "Deploy template"
+      #  shell: bash
+      #  run: |
+      #    az bicep version
+      #    az deployment sub create --location westeurope --template-file main.bicep
           
       - uses: azure/CLI@v1
         with:
           inlineScript: |
             echo "HOME: '${home}'"
-            ls /github
+            echo "WSPAth: '${GITHUB_WORKSPACE}'"
+            ls $GITHUB_WORKSPACE
+            ls ~
+            az config get
+            ls /root -R
+            ls /github/home
             
             
           
