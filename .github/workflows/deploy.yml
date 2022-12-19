@@ -14,8 +14,18 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.CREDENTIALS }}
+      
+
           
       - name: "Deploy template"
         shell: bash
         run: |
           az deployment sub create --location westeurope --template-file main.bicep
+        
+      - name: Azure CLI script
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.43.0
+          inlineScript: |
+            echo "Variable AZURE_CONFIG_DIR has value: ${AZURE_CONFIG_DIR}
+            ls /home/runner
