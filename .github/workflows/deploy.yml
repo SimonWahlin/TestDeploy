@@ -29,17 +29,21 @@ jobs:
       #  run: |
       #    az bicep version
       #    az deployment sub create --location westeurope --template-file main.bicep
-          
+      
+      # Symlink bicep to workspace dir to make it available for AzCLI container
+      - shell: bash
+        run: |
+          mkdir -p "${GITHUB_WORKSPACE}/.azure/bin"
+          ln -s /home/runner/.azure/bin/bicep "${GITHUB_WORKSPACE}/.azure/bin/bicep"
+        continue-on-error: true
+        
       - uses: azure/CLI@v1
         with:
           inlineScript: |
-            echo "HOME: '${home}'"
-            echo "WSPAth: '${GITHUB_WORKSPACE}'"
-            ls $GITHUB_WORKSPACE
-            ls ~
-            az config get
-            ls /root -R
-            ls /home/runner -a -R
+            # symlink bicep from workspace dir to profile inside container
+            mkdir -p "~/.azure/bin"
+            ln -s "${GITHUB_WORKSPACE}/.azure/bin/bicep" "~/.azure/bin/bicep"
+            az bicep version
             
             
           
