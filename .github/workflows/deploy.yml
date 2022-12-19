@@ -29,3 +29,12 @@ jobs:
         run: |
           az bicep version
           az deployment sub create --location westeurope --template-file main.bicep
+          
+      - uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            echo "HOME: '${home}'"
+            ls /github
+            
+            
+          
