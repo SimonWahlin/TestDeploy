@@ -8,16 +8,22 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
+      # This step shows that bicep is not installed on start of pipeline
       - shell: bash
         run: az bicep version
-        
-      - uses: simonwahlin/CompositeActionTest@v1
+        continue-on-error: true
       
+      # This action will restore bicep from cache or install if not found in cache
+      - uses: simonwahlin/CompositeActionTest@v2
+      
+      # This action will authenticate to Azure
       - name: Azure Login
         uses: azure/login@v1
         with:
           creds: ${{ secrets.CREDENTIALS }}
 
+      # Simple bash step that lists current bicep version
+      # and deploys a template (az cli is included in ubuntu runner)
       - name: "Deploy template"
         shell: bash
         run: |
