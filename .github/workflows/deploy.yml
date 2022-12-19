@@ -27,5 +27,5 @@ jobs:
         with:
           azcliversion: 2.43.0
           inlineScript: |
-            echo "Variable AZURE_CONFIG_DIR has value: ${AZURE_CONFIG_DIR}
+            echo "Variable AZURE_CONFIG_DIR has value: ${AZURE_CONFIG_DIR}"
             ls /home/runner
