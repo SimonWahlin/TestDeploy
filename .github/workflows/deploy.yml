@@ -39,7 +39,7 @@ jobs:
             ls ~
             az config get
             ls /root -R
-            ls /github/home
+            ls /home/runner -a -R
             
             
           
