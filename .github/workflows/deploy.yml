@@ -14,9 +14,13 @@ jobs:
         continue-on-error: true
       
       # This action will restore bicep from cache or install if not found in cache
-      - uses: simonwahlin/CompositeActionTest@v3
+      - uses: SimonWahlin/AzCliBicepSetup@v1
       
-      # This action will authenticate to Azure
+      # This step shows that bicep is now installed
+      - shell: bash
+        run: az bicep version
+        
+      # This action will authenticate to Azure (requires CREDENTIALS secret)
       - name: Azure Login
         uses: azure/login@v1
         with:
@@ -24,26 +28,8 @@ jobs:
 
       # Simple bash step that lists current bicep version
       # and deploys a template (az cli is included in ubuntu runner)
-      #- name: "Deploy template"
-      #  shell: bash
-      #  run: |
-      #    az bicep version
-      #    az deployment sub create --location westeurope --template-file main.bicep
-      
-      # Symlink bicep to workspace dir to make it available for AzCLI container
-      - shell: bash
+      - name: "Deploy template"
+        shell: bash
         run: |
-          mkdir -p "${GITHUB_WORKSPACE}/.azure/bin"
-          ln -s /home/runner/.azure/bin/bicep "${GITHUB_WORKSPACE}/.azure/bin/bicep"
-        continue-on-error: true
-        
-      - uses: azure/CLI@v1
-        with:
-          inlineScript: |
-            # symlink bicep from workspace dir to profile inside container
-            mkdir -p "~/.azure/bin"
-            ln -s "${GITHUB_WORKSPACE}/.azure/bin/bicep" "~/.azure/bin/bicep"
-            az bicep version
-            
-            
-          
+          az bicep version
+          az deployment sub create --location westeurope --template-file main.bicep
