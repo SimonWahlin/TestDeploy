@@ -7,15 +7,15 @@ jobs:
     name: deploy a bicep file
     steps:
       - uses: actions/checkout@v3
+      
       - uses: simonwahlin/CompositeActionTest@v1
+      
       - name: Azure Login
         uses: azure/login@v1
         with:
           creds: ${{ secrets.CREDENTIALS }}
-
-      - name: Azure CLI script
-        uses: azure/CLI@v1
-        with:
-          azcliversion: 2.43.0
-          inlineScript: |
-            az deployment sub create --location westeurope --template-file main.bicep --debug
+          
+      - name: "Deploy template"
+        shell: bash
+        run: |
+          az deployment sub create --location westeurope --template-file main.bicep
