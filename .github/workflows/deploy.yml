@@ -41,4 +41,5 @@ jobs:
           scope: subscription
           region: westeurope
           template: main.bicep
+          additionalArguments: --only-show-errors
           
