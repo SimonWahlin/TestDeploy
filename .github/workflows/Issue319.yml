@@ -1,0 +1,17 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  deployBicep:
+    runs-on: ubuntu-latest
+    name: Test issue 319
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: test
+        shell: pwsh
+        run: |
+          Install-Module -Name Bicep -AllowClobber -Scope CurrentUser -Force
+          Build-Bicep -Path ./ -Verbose
+      
+          
