@@ -11,6 +11,7 @@ jobs:
       - name: test
         shell: pwsh
         run: |
+          Install-Module -Name PSDocs.Azure -AllowClobber -Scope CurrentUser -Force
           Install-Module -Name Bicep -AllowClobber -Scope CurrentUser -Force
           Build-Bicep -Path ./ -Verbose
       
