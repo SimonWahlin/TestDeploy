@@ -13,6 +13,7 @@ jobs:
         run: |
           Install-Module -Name PSDocs.Azure -AllowClobber -Scope CurrentUser -Force
           Install-Module -Name Bicep -AllowClobber -Scope CurrentUser -Force
-          Build-Bicep -Path ./ -Verbose
+          Build-Bicep -Path "solution/" -Verbose
+          Build-Bicep -Path "solution/" -AsString -Verbose
       
           
